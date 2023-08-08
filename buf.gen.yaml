@@ -1,0 +1,35 @@
+# 配置protoc生成规则
+version: v1
+plugins:
+  # generate go struct code
+  - name: go
+    out: gen
+    opt: paths=source_relative
+  # generate go grpc code
+  - name: go-grpc
+    out: gen/api
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false
+  # generate rest service code
+  - plugin: go-http
+    out: gen/api
+    opt: paths=source_relative
+  # generate kratos error code
+  - plugin: go-errors
+    out: gen/errors
+    opt: paths=source_relative
+#  # generate validate code
+#  - plugin: go-validate
+#    out: gen/go
+#    opt: lang=go
+#  # generate swagger code
+#  - plugin: swagger
+#    out: gen/swagger
+#    opt: allow_merge=true,merge_file_name=api
+#  # generate grpc gateway code
+#  - plugin: grpc-gateway
+#    out: gen/gateway
+#    opt: paths=source_relative,generate_unbound_methods=true
+
+
