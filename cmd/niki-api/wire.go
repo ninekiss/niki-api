@@ -6,8 +6,8 @@
 package main
 
 import (
+	"niki-api/gen/api/conf"
 	"niki-api/internal/biz"
-	"niki-api/internal/conf"
 	"niki-api/internal/data"
 	"niki-api/internal/server"
 	"niki-api/internal/service"

@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
+	v1 "niki-api/gen/api/helloworld/v1"
 
-	v1 "niki-api/api/helloworld/v1"
 	"niki-api/internal/biz"
 )
 

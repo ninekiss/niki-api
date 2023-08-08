@@ -1,8 +1,8 @@
 package server
 
 import (
-	v1 "niki-api/api/helloworld/v1"
-	"niki-api/internal/conf"
+	"niki-api/gen/api/conf"
+	v1 "niki-api/gen/api/helloworld/v1"
 	"niki-api/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"

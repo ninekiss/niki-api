@@ -1,7 +1,7 @@
 package data
 
 import (
-	"niki-api/internal/conf"
+	"niki-api/gen/api/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

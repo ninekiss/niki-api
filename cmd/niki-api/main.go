@@ -2,9 +2,8 @@ package main
 
 import (
 	"flag"
+	"niki-api/gen/api/conf"
 	"os"
-
-	"niki-api/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"
