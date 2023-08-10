@@ -36,3 +36,8 @@ bin/
 .vscode/
 .idea/
 *.swp
+
+# Go generated files
+gen/
+
+# git 清除缓存
