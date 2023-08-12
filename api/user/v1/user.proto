@@ -8,9 +8,16 @@ option java_multiple_files = true;
 option java_package = "api.user.v1";
 
 service User {
+	rpc SignIn (SignInRequest) returns (SignInReply) {
+		option (google.api.http) = {
+			post: "/v1/user/signin"
+			body: "*"
+		};
+	}
 	rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {
 		option (google.api.http) = {
-			get: "/v1/user/create"
+			post: "/v1/user/create"
+			body: "*"
 		};
 	};
 	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply) {
@@ -35,13 +42,25 @@ service User {
 	};
 }
 
+message SignInRequest {
+	string username = 1;
+	string password = 2;
+}
+
+message SignInReply {
+	string uid = 1;
+	string username = 2;
+	string token = 3;
+	string email = 4;
+}
+
 message CreateUserRequest {
-	string name = 1;
+	string username = 1;
 	string email = 2;
 	string password = 3;
 }
 message CreateUserReply {
-	string id = 1;
+	string uid = 1;
 }
 
 message UpdateUserRequest {

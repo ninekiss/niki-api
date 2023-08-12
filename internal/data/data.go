@@ -6,10 +6,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"niki-api/gen/api/conf"
+	"niki-api/internal/biz"
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDB, NewGreeterRepo)
+var ProviderSet = wire.NewSet(NewData, NewDB, NewGreeterRepo, NewUserRepo)
 
 // Data .
 type Data struct {
@@ -37,18 +38,8 @@ func NewDB(c *conf.Data) *gorm.DB {
 
 func InitDB(db *gorm.DB) {
 	if err := db.AutoMigrate(
-		&User{},
+		&biz.User{},
 	); err != nil {
 		panic(err)
 	}
-}
-
-// User .
-type User struct {
-	gorm.Model
-	Username string `gorm:"column:username;unique" json:"username"`
-	Email    string `gorm:"column:email;unique" json:"email"`
-	Password string `gorm:"column:password" json:"password"`
-	Bio      string `gorm:"column:bio" json:"bio"`
-	Image    string `gorm:"column:image" json:"image"`
 }

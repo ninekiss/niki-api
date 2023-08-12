@@ -5,7 +5,6 @@ plugins:
   - plugin: go
     out: gen/api
     opt: paths=source_relative
-    strategy: all
 
   # generate go grpc code
   - plugin: go-grpc
@@ -28,14 +27,18 @@ plugins:
 #    out: gen/go
 #    opt: lang=go
 #
-#  # generate swagger code
-#  - plugin: openapiv2
-#    out: gen/swagger
-#    opt: allow_merge=true,merge_file_name=api
-
+  # generate swagger code
+  - plugin: openapiv2
+    out: gen/api
+    opt:
+#      - allow_merge=true,merge_file_name=api
+      - logtostderr=true
+      - json_names_for_fields=false
 #  # generate grpc gateway code
-#  - plugin: grpc-gateway
-#    out: gen/gateway
-#    opt: paths=source_relative,generate_unbound_methods=true
+  - plugin: grpc-gateway
+    out: gen/api
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
 
 
