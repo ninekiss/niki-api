@@ -27,10 +27,12 @@ plugins:
 #  - plugin: go-validate
 #    out: gen/go
 #    opt: lang=go
+#
 #  # generate swagger code
-#  - plugin: swagger
+#  - plugin: openapiv2
 #    out: gen/swagger
 #    opt: allow_merge=true,merge_file_name=api
+
 #  # generate grpc gateway code
 #  - plugin: grpc-gateway
 #    out: gen/gateway

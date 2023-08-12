@@ -2,7 +2,8 @@ package server
 
 import (
 	"niki-api/gen/api/conf"
-	v1 "niki-api/gen/api/helloworld/v1"
+	helloworld "niki-api/gen/api/helloworld/v1"
+	user "niki-api/gen/api/user/v1"
 	"niki-api/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -11,7 +12,7 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, greeter *service.GreeterService, logger log.Logger) *grpc.Server {
+func NewGRPCServer(c *conf.Server, gs *service.GreeterService, us *service.UserService, logger log.Logger) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
@@ -27,6 +28,7 @@ func NewGRPCServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.RegisterGreeterServer(srv, greeter)
+	helloworld.RegisterGreeterServer(srv, gs)
+	user.RegisterUserServer(srv, us)
 	return srv
 }

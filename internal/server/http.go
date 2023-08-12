@@ -1,8 +1,10 @@
 package server
 
 import (
+	"github.com/go-kratos/swagger-api/openapiv2"
 	"niki-api/gen/api/conf"
-	v1 "niki-api/gen/api/helloworld/v1"
+	helloworld "niki-api/gen/api/helloworld/v1"
+	user "niki-api/gen/api/user/v1"
 	"niki-api/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -11,7 +13,7 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.Logger) *http.Server {
+func NewHTTPServer(c *conf.Server, gs *service.GreeterService, us *service.UserService, logger log.Logger) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -27,6 +29,10 @@ func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-	v1.RegisterGreeterHTTPServer(srv, greeter)
+	openAPIhandler := openapiv2.NewHandler()
+	srv.HandlePrefix("/q/", openAPIhandler)
+
+	helloworld.RegisterGreeterHTTPServer(srv, gs)
+	user.RegisterUserHTTPServer(srv, us)
 	return srv
 }

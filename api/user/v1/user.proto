@@ -1,30 +1,91 @@
 syntax = "proto3";
 
 package api.user.v1;
+import "google/api/annotations.proto";
 
 option go_package = "niki-api/api/user/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.user.v1";
 
 service User {
-	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
-	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
-	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
-	rpc GetUser (GetUserRequest) returns (GetUserReply);
-	rpc ListUser (ListUserRequest) returns (ListUserReply);
+	rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {
+		option (google.api.http) = {
+			get: "/v1/user/create"
+		};
+	};
+	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply) {
+		option (google.api.http) = {
+			get: "/v1/user/update"
+		};
+	};
+	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply){
+		option (google.api.http) = {
+			get: "/v1/user/delete"
+		};
+	};
+	rpc GetUser (GetUserRequest) returns (GetUserReply){
+		option (google.api.http) = {
+			get: "/v1/user/get"
+		};
+	};
+	rpc ListUser (ListUserRequest) returns (ListUserReply) {
+		option (google.api.http) = {
+			get: "/v1/user/list"
+		};
+	};
 }
 
-message CreateUserRequest {}
-message CreateUserReply {}
+message CreateUserRequest {
+	string name = 1;
+	string email = 2;
+	string password = 3;
+}
+message CreateUserReply {
+	string id = 1;
+}
 
-message UpdateUserRequest {}
-message UpdateUserReply {}
+message UpdateUserRequest {
+	string id = 1;
+	string name = 2;
+	string email = 3;
+	string password = 4;
+}
+message UpdateUserReply {
+	string id = 1;
+}
 
-message DeleteUserRequest {}
-message DeleteUserReply {}
+message DeleteUserRequest {
+	string id = 1;
+}
+message DeleteUserReply {
+	string id = 1;
+}
 
-message GetUserRequest {}
-message GetUserReply {}
+message GetUserRequest {
+	string id = 1;
+}
+message GetUserReply {
+	string id = 1;
+	string name = 2;
+	string email = 3;
+	string password = 4;
+}
 
-message ListUserRequest {}
-message ListUserReply {}
+message ListUserRequest {
+	string page = 1;
+	string page_size = 2;
+	string sort = 3;
+	string order = 4;
+}
+message ListUserReply {
+	message Data {
+		string id = 1;
+		string name = 2;
+		string email = 3;
+		string password = 4;
+	}
+	repeated Data data = 1;
+	int32 page = 2;
+	int32 page_size = 3;
+	int32 total = 4;
+}
