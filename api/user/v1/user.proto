@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package api.user.v1;
 import "google/api/annotations.proto";
+import "validate/validate.proto";
 
 option go_package = "niki-api/api/user/v1;v1";
 option java_multiple_files = true;
@@ -43,21 +44,20 @@ service User {
 }
 
 message SignInRequest {
-	string username = 1;
-	string password = 2;
+	string username = 1 [(validate.rules).string = {min_len: 4, max_len: 20, pattern: "[a-zA-Z0-9]+"}];
+	string password = 2 [(validate.rules).string = {min_len: 8, max_len: 20, pattern: "[a-zA-Z0-9]+"}];
 }
 
 message SignInReply {
 	string uid = 1;
 	string username = 2;
 	string token = 3;
-	string email = 4;
 }
 
 message CreateUserRequest {
-	string username = 1;
-	string email = 2;
-	string password = 3;
+	string username = 1 [(validate.rules).string = {min_len: 4, max_len: 20, pattern: "[a-zA-Z0-9]+"}];
+	string email = 2 [(validate.rules).string = {email: true}];
+	string password = 3 [(validate.rules).string = {min_len: 8, max_len: 20, pattern: "[a-zA-Z0-9]+"}];
 }
 message CreateUserReply {
 	string uid = 1;

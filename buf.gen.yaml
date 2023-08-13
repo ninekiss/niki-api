@@ -18,15 +18,18 @@ plugins:
     out: gen/api
     opt: paths=source_relative
 
-#  # generate kratos error code
-#  - plugin: go-errors
-#    out: gen/errors
-#    opt: paths=source_relative
-#  # generate validate code
-#  - plugin: go-validate
-#    out: gen/go
-#    opt: lang=go
-#
+  # generate kratos error code
+  - plugin: go-errors
+    out: gen/api
+    opt: paths=source_relative
+
+  # generate validate code
+  - plugin: validate
+    out: gen/api
+    opt:
+      - lang=go
+      - paths=source_relative
+
   # generate swagger code
   - plugin: openapiv2
     out: gen/api
@@ -34,7 +37,8 @@ plugins:
 #      - allow_merge=true,merge_file_name=api
       - logtostderr=true
       - json_names_for_fields=false
-#  # generate grpc gateway code
+
+  # generate grpc gateway code
   - plugin: grpc-gateway
     out: gen/api
     opt:

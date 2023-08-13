@@ -17,12 +17,17 @@ var (
 // User .
 type User struct {
 	gorm.Model
-	Uid      string `gorm:"column:uid;primary_key" json:"uid"`
-	Username string `gorm:"column:username;unique" json:"username"`
-	Email    string `gorm:"column:email;unique" json:"email"`
-	Password string `gorm:"column:password" json:"password"`
-	Bio      string `gorm:"column:bio" json:"bio"`
+	Uid      string `gorm:"<-:create;type: char(20);not null;uniqueIndex" json:"uid"`
+	Username string `gorm:"type: char(20);not null;uniqueIndex" json:"username" form:"username"`
+	Password string `gorm:"type: char(100);not null" json:"password" form:"password"`
+	Nickname string `gorm:"type: char(20);comment: 昵称" json:"nickname" form:"nickname"`
+	Email    string `gorm:"type: char(20);comment: 邮箱" json:"email" form:"email"`
+	Phone    string `gorm:"type: char(20);comment: 手机" json:"phone" form:"phone"`
+	Age      byte   `gorm:"type: int;comment: 年龄" json:"age" form:"age"`
+	Gender   byte   `gorm:"type: int;default: 2;comment: 性别,0-男,1-女,2-未知;" json:"gender" form:"gender"`
+	Address  string `gorm:"type: char(200);comment: 地址" json:"address" form:"address"`
 	Avatar   string `gorm:"column:image" json:"avatar"`
+	Status   byte   `gorm:"type: int;default: 1;comment: 状态,0-禁用,1-启用" json:"status" form:"status"`
 }
 
 // UserRepo .

@@ -3,10 +3,15 @@ module niki-api
 go 1.18
 
 require (
+	github.com/envoyproxy/protoc-gen-validate v0.10.1
 	github.com/go-kratos/kratos/v2 v2.7.0
 	github.com/go-kratos/swagger-api v1.0.1
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/wire v0.5.0
+	github.com/gorilla/handlers v1.5.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0
 	go.uber.org/automaxprocs v1.5.3
+	golang.org/x/crypto v0.10.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20230807174057-1744710a1577
 	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
@@ -15,6 +20,7 @@ require (
 )
 
 require (
+	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-kratos/aegis v0.2.0 // indirect
@@ -27,7 +33,6 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect

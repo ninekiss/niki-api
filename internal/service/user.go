@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"niki-api/internal/biz"
+	"niki-api/utils"
 
 	v1 "niki-api/gen/api/user/v1"
 )
@@ -30,16 +31,16 @@ func (s *UserService) SignIn(ctx context.Context, req *v1.SignInRequest) (*v1.Si
 	if err != nil {
 		return nil, err
 	}
+
 	// 生成 token
-	//token, err := s.uc.GenerateToken(ctx, rv)
-	token := "KlKLLqwdqwd1231"
-	//if err != nil {
-	//	return nil, err
-	//}
+	token, err := utils.GenToken(rv.Uid, rv.Username)
+	if err != nil {
+		return nil, err
+	}
+
 	return &v1.SignInReply{
 		Uid:      rv.Uid,
 		Username: rv.Username,
-		Email:    rv.Email,
 		Token:    token,
 	}, nil
 }
