@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+import "errors/errors.proto";
+
+option go_package = "niki-api/api/helloworld/v1;v1";
+option java_multiple_files = true;
+option java_package = "helloworld.v1";
+option objc_class_prefix = "APIHelloworldV1";
+
+enum ErrorReason {
+  USER_NOT_FOUND = 0;
+  USER_OR_PASSWORD_ERROR = 1;
+  USER_ALREADY_EXISTS = 2;
+  USER_NOT_LOGIN = 3;
+  USER_NOT_AUTHORIZED = 4;
+  USER_NOT_PERMISSION = 5;
+  CUSTOMER_ERROR = 6 [(errors.code) = 555];
+}

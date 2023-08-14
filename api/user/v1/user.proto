@@ -23,12 +23,14 @@ service User {
 	};
 	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply) {
 		option (google.api.http) = {
-			get: "/v1/user/update"
+			post: "/v1/user/update"
+			body: "*"
 		};
 	};
 	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply){
 		option (google.api.http) = {
-			get: "/v1/user/delete"
+			post: "/v1/user/delete"
+			body: "*"
 		};
 	};
 	rpc GetUser (GetUserRequest) returns (GetUserReply){
@@ -46,6 +48,7 @@ service User {
 message SignInRequest {
 	string username = 1 [(validate.rules).string = {min_len: 4, max_len: 20, pattern: "[a-zA-Z0-9]+"}];
 	string password = 2 [(validate.rules).string = {min_len: 8, max_len: 20, pattern: "[a-zA-Z0-9]+"}];
+	string captcha = 3 [(validate.rules).string = {len: 6, pattern: "[a-zA-Z0-9]+"}];
 }
 
 message SignInReply {
@@ -64,44 +67,65 @@ message CreateUserReply {
 }
 
 message UpdateUserRequest {
-	string id = 1;
-	string name = 2;
-	string email = 3;
-	string password = 4;
+	string uid = 1;
+	string username = 2;
+	string nickname = 4;
+	string email = 5;
+	string phone = 6;
+	string avatar = 7;
+	int32 status = 8;
+	int32 gender = 11;
+	int32 age = 12;
 }
 message UpdateUserReply {
-	string id = 1;
 }
 
 message DeleteUserRequest {
-	string id = 1;
+	repeated string uid = 1;
 }
 message DeleteUserReply {
-	string id = 1;
 }
 
 message GetUserRequest {
-	string id = 1;
+	string uid = 1;
 }
 message GetUserReply {
-	string id = 1;
-	string name = 2;
-	string email = 3;
-	string password = 4;
+	string uid = 1;
+	string username = 2;
+	string nickname = 4;
+	string email = 5;
+	string phone = 6;
+	string avatar = 7;
+	int32 status = 8;
+	string created_at = 9;
+	string updated_at = 10;
+	int32 gender = 11;
+	int32 age = 12;
 }
 
 message ListUserRequest {
-	string page = 1;
-	string page_size = 2;
+	int32 page = 1;
+	int32 page_size = 2;
 	string sort = 3;
 	string order = 4;
+	string username = 5;
+	string email = 6;
+	string nickname = 7;
+	string phone = 8;
 }
 message ListUserReply {
 	message Data {
-		string id = 1;
-		string name = 2;
-		string email = 3;
-		string password = 4;
+		string uid = 1;
+		string username = 2;
+		string nickname = 4;
+		string email = 5;
+		string phone = 6;
+		string avatar = 7;
+		int32 status = 8;
+		string created_at = 9;
+		string updated_at = 10;
+		int32 gender = 11;
+		int32 age = 12;
 	}
 	repeated Data data = 1;
 	int32 page = 2;

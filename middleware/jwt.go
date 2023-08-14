@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/go-kratos/kratos/v2/metadata"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/transport"
@@ -12,6 +13,7 @@ import (
 func JWTMiddleware() middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
+			fmt.Println("JWTMiddleware", reply)
 			if tr, ok := transport.FromServerContext(ctx); ok {
 				token := tr.RequestHeader().Get("Authorization")
 				if token == "" {
